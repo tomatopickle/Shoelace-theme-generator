@@ -12,6 +12,7 @@
 		"@shoelace-style/vue-sl-model": "^2.0.0",
 		"chroma-js": "^2.4.2",
 		"core-js": "^3.8.3",
+		"jss-browserify": "^0.6.0",
 		"vue": "^3.2.13"
 	},
 	"devDependencies": {
@@ -28,7 +29,10 @@
 		"env": {
 			"node": true
 		},
-		"extends": ["plugin:vue/vue3-essential", "eslint:recommended"],
+		"extends": [
+			"plugin:vue/vue3-essential",
+			"eslint:recommended"
+		],
 		"parserOptions": {
 			"parser": "@babel/eslint-parser"
 		},
@@ -36,5 +40,10 @@
 			"vue/no-deprecated-slot-attribute": "off"
 		}
 	},
-	"browserslist": ["> 1%", "last 2 versions", "not dead", "not ie 11"]
+	"browserslist": [
+		"> 1%",
+		"last 2 versions",
+		"not dead",
+		"not ie 11"
+	]
 }

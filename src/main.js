@@ -1,6 +1,6 @@
 import '@shoelace-style/shoelace';
 import '@shoelace-style/shoelace/dist/themes/light.css';
-import '@shoelace-style/shoelace/dist/themes/dark.css';
+// import '@shoelace-style/shoelace/dist/themes/dark.css';
 import ShoelaceModelDirective from '@shoelace-style/vue-sl-model'
 import { setBasePath } from '@shoelace-style/shoelace/dist/utilities/base-path';
 
@@ -13,6 +13,6 @@ const app = createApp(App);
 app.use(ShoelaceModelDirective);
 app.mount('#app');
 
-if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    document.body.classList.add("sl-theme-dark");
-}
+// if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+//     document.body.classList.add("sl-theme-dark");
+// }
