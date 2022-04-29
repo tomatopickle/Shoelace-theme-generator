@@ -156,6 +156,10 @@ export default {
               chroma(scale[1]).luminance(0.01)
             ).hex()} `;
           }
+        } else {
+          styles[`--sl-color-neutral-0`] = `${chroma(
+            chroma(scale[1]).luminance(1)
+          ).hex()} `;
         }
 
         scale.map((color, index) => {
@@ -165,14 +169,9 @@ export default {
           ] = `rgb(${rgb})`;
         });
       });
-      // styles[`--sl-color-neutral-0`] = `${chroma(
-      //   chroma(styles["--sl-color-neutral-50"]).luminance(0.01)
-      // ).hex()} `;
-      console.log(styles);
       // Clearing previous styles
       jss.remove(":root,:host,.sl-theme-light");
       jss.set(":root,:host,.sl-theme-light", styles);
-      this.darkMode = true;
     },
   },
 };
