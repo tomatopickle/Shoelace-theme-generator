@@ -88,6 +88,11 @@ export default {
   methods: {
     updateColor(e, variable) {
       let value = e.target.value;
+      this.colors.forEach((color,i)=>{
+        if(color.variable == variable){
+          this.colors[i].value = e.target.value;
+        }
+      });
       let styles = {};
       // If it's in this format hsl(x y z%) add commas to it
       if (value.includes("hsl") && !value.includes(",")) {
