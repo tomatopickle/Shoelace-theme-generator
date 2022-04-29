@@ -12,6 +12,9 @@
               <sl-button size="medium" @click="switchToDarkMode()"
                 >Switch to Dark Mode</sl-button
               >
+              <sl-button variant="primary" @click="showCode()"
+                >Get Code</sl-button
+              >
             </div>
             <div>
               <div
@@ -57,6 +60,19 @@
         </div>
       </sl-split-panel>
     </div>
+    <sl-dialog label="Copy Code" :open="copyCode.show">
+      <code id="codePreview ">
+        body { font-family: var(--sl-font-sans); font-size:
+        var(--sl-font-size-medium); font-weight: var(--sl-font-weight-normal);
+        letter-spacing: var(--sl-letter-spacing-normal); background-color:
+        var(--sl-color-neutral-0); color: var(--sl-color-neutral-900);
+        line-height: var(--sl-line-height-normal); --spacing: 1.5rem;
+        --swatch-size: 55px; }
+      </code>
+      <div slot="footer">
+        <sl-button class="margin-small" variant="primary">Copy Code</sl-button>
+      </div>
+    </sl-dialog>
   </div>
 </template>
 
@@ -68,6 +84,9 @@ export default {
   data: () => {
     return {
       darkMode: false,
+      copyCode: {
+        show: false,
+      },
       numbers: [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950],
       colors: [
         { name: "Primary", id: "primary", variable: "--sl-color-primary" },
@@ -92,6 +111,11 @@ export default {
     }
   },
   methods: {
+    showCode() {
+      this.copyCode.show = true;
+      // let styles = "";
+      this.darkMode = !this.darkMode;
+    },
     updateColor(e, variable) {
       let value = e.target.value;
       this.colors.forEach((color, i) => {
@@ -99,12 +123,31 @@ export default {
           this.colors[i].value = e.target.value;
         }
       });
+      jss.set(":root,:host,.sl-theme-light", this.getPalette(variable, value));
+    },
+    switchToDarkMode() {
       let styles = {};
+      this.darkMode = !this.darkMode;
+      this.colors.forEach((colorInfo) => {
+        // Merging the styles object returned
+        styles = Object.assign(
+          styles,
+          this.getPalette(colorInfo.variable, colorInfo.value)
+        );
+      });
+      // Clearing previous styles
+      jss.remove(":root,:host,.sl-theme-light");
+      jss.set(":root,:host,.sl-theme-light", styles);
+    },
+    getPalette(variable, value) {
+      // Returns a pallete of colors in a json format
       // If it's in this format hsl(x y z%) add commas to it
+      let styles = {};
       if (value.includes("hsl") && !value.includes(",")) {
         value = value.trim().replaceAll(" ", ",");
       }
       const hex = chroma(value).hex();
+
       let scale = chroma
         .scale([
           chroma(hex).luminance(0.95), // 50
@@ -127,62 +170,17 @@ export default {
             chroma(scale[1]).luminance(0.01)
           ).hex()} `;
         }
+      } else {
+        styles[`--sl-color-neutral-0`] = `${chroma(
+          chroma(scale[1]).luminance(1)
+        ).hex()} `;
       }
+
       scale.map((color, index) => {
         const rgb = chroma(color).rgb();
         styles[`${variable}-${this.numbers[index]}`] = `rgb(${rgb})`;
       });
-      jss.set(":root,:host,.sl-theme-light", styles);
-    },
-    switchToDarkMode() {
-      let styles = {};
-      this.darkMode = !this.darkMode;
-      this.colors.forEach((colorInfo) => {
-        let value = colorInfo.value;
-        // If it's in this format hsl(x y z%) add commas to it
-        if (value.includes("hsl") && !value.includes(",")) {
-          value = value.trim().replaceAll(" ", ",");
-        }
-        const hex = chroma(value).hex();
-
-        let scale = chroma
-          .scale([
-            chroma(hex).luminance(0.95), // 50
-            chroma(hex).luminance(0.84), // 100
-            chroma(hex).luminance(0.73), // 200
-            chroma(hex).luminance(0.62), // 300
-            chroma(hex).luminance(0.49), // 400
-            chroma(hex).luminance(0.35), // 500
-            chroma(hex).luminance(0.23), // 600
-            chroma(hex).luminance(0.15), // 700
-            chroma(hex).luminance(0.1), // 800
-            chroma(hex).luminance(0.05), // 900
-            chroma(hex).luminance(0.02), // 950
-          ])
-          .colors(this.numbers.length);
-        if (this.darkMode) {
-          scale = scale.reverse();
-          if (colorInfo.variable == "--sl-color-neutral") {
-            styles[`--sl-color-neutral-0`] = `${chroma(
-              chroma(scale[1]).luminance(0.01)
-            ).hex()} `;
-          }
-        } else {
-          styles[`--sl-color-neutral-0`] = `${chroma(
-            chroma(scale[1]).luminance(1)
-          ).hex()} `;
-        }
-
-        scale.map((color, index) => {
-          const rgb = chroma(color).rgb();
-          styles[
-            `${colorInfo.variable}-${this.numbers[index]}`
-          ] = `rgb(${rgb})`;
-        });
-      });
-      // Clearing previous styles
-      jss.remove(":root,:host,.sl-theme-light");
-      jss.set(":root,:host,.sl-theme-light", styles);
+      return styles;
     },
   },
 };
@@ -194,7 +192,7 @@ body {
   font-size: var(--sl-font-size-medium);
   font-weight: var(--sl-font-weight-normal);
   letter-spacing: var(--sl-letter-spacing-normal);
-  background-color: var(--sl-color-neutral-50);
+  background-color: var(--sl-color-neutral-0);
   color: var(--sl-color-neutral-900);
   line-height: var(--sl-line-height-normal);
   --spacing: 1.5rem;
