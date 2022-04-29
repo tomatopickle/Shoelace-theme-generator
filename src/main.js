@@ -12,7 +12,3 @@ import App from './App.vue';
 const app = createApp(App);
 app.use(ShoelaceModelDirective);
 app.mount('#app');
-
-// if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-//     document.body.classList.add("sl-theme-dark");
-// }

@@ -84,12 +84,18 @@ export default {
         document.documentElement
       ).getPropertyValue(`${color.variable}-500`);
     });
+    if (
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+    ) {
+      this.switchToDarkMode();
+    }
   },
   methods: {
     updateColor(e, variable) {
       let value = e.target.value;
-      this.colors.forEach((color,i)=>{
-        if(color.variable == variable){
+      this.colors.forEach((color, i) => {
+        if (color.variable == variable) {
           this.colors[i].value = e.target.value;
         }
       });
