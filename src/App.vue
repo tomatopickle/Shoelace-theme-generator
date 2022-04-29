@@ -61,14 +61,10 @@
       </sl-split-panel>
     </div>
     <sl-dialog label="Copy Code" :open="copyCode.show">
-      <code id="codePreview ">
-        body { font-family: var(--sl-font-sans); font-size:
-        var(--sl-font-size-medium); font-weight: var(--sl-font-weight-normal);
-        letter-spacing: var(--sl-letter-spacing-normal); background-color:
-        var(--sl-color-neutral-0); color: var(--sl-color-neutral-900);
-        line-height: var(--sl-line-height-normal); --spacing: 1.5rem;
-        --swatch-size: 55px; }
-      </code>
+      <pre id="codePreview">
+      <code>{{copyCode.styles}}</code>
+
+      </pre>
       <div slot="footer">
         <sl-button class="margin-small" variant="primary">Copy Code</sl-button>
       </div>
@@ -86,6 +82,7 @@ export default {
       darkMode: false,
       copyCode: {
         show: false,
+        styles: "",
       },
       numbers: [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950],
       colors: [
@@ -113,8 +110,16 @@ export default {
   methods: {
     showCode() {
       this.copyCode.show = true;
-      // let styles = "";
-      this.darkMode = !this.darkMode;
+      let styles = "";
+      this.colors.forEach((colorInfo) => {
+        // Converting JSON object to CSS code and adding it
+        let palette = this.getPalette(colorInfo.variable, colorInfo.value);
+        for (var variable of Object.keys(palette)) {
+          styles += `\n ${variable}: ${palette[variable]}`;
+        }
+      });
+      console.log(styles);
+      this.copyCode.styles = styles;
     },
     updateColor(e, variable) {
       let value = e.target.value;
@@ -197,6 +202,11 @@ body {
   line-height: var(--sl-line-height-normal);
   --spacing: 1.5rem;
   --swatch-size: 55px;
+}
+#codePreview {
+  background-color: var(--sl-color-neutral-50);
+  height: max-content;
+  border-radius: var(--sl-border-radius-medium);
 }
 h1,
 h2,
