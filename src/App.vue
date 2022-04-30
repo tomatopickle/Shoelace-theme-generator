@@ -60,11 +60,27 @@
         </div>
       </sl-split-panel>
     </div>
-    <sl-dialog label="Copy Code" :open="copyCode.show" @sl-after-hide="copyCode.show = false;">
-      <pre id="codePreview">
-      <code>{{copyCode.styles}}</code>
-
-      </pre>
+    <sl-dialog
+      label="Copy Code"
+      :open="copyCode.show"
+      @sl-after-hide="copyCode.show = false"
+    >
+      <div>
+        Add this to your stylesheeet, and don't forget to add the class to an
+        element!
+      </div>
+      <br />
+      <div id="codePreview">
+        <code>.custom-theme {</code>
+        <br />
+        <template v-for="(color, i) in this.copyCode.styles" :key="i">
+          <code>
+            {{ `${i}: ${color};` }}
+          </code>
+          <br />
+        </template>
+        <code>}</code>
+      </div>
       <div slot="footer">
         <sl-button class="margin-small" variant="primary">Copy Code</sl-button>
       </div>
@@ -82,7 +98,7 @@ export default {
       darkMode: false,
       copyCode: {
         show: false,
-        styles: "",
+        styles: {},
       },
       numbers: [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950],
       colors: [
@@ -110,15 +126,22 @@ export default {
   methods: {
     showCode() {
       this.copyCode.show = true;
-      let styles = "";
+      let styles = {};
+      // this.colors.forEach((colorInfo) => {
+      //   // Converting JSON object to CSS code and adding it
+      //   let palette = this.getPalette(colorInfo.variable, colorInfo.value);
+      //   for (var variable of Object.keys(palette)) {
+      //     styles += `\n${variable}: ${palette[variable]};`;
+      //   }
+      // });
       this.colors.forEach((colorInfo) => {
-        // Converting JSON object to CSS code and adding it
-        let palette = this.getPalette(colorInfo.variable, colorInfo.value);
-        for (var variable of Object.keys(palette)) {
-          styles += `\n ${variable}: ${palette[variable]}`;
-        }
+        // Merging the styles object returned
+        styles = Object.assign(
+          styles,
+          this.getPalette(colorInfo.variable, colorInfo.value)
+        );
       });
-      
+
       this.copyCode.styles = styles;
     },
     updateColor(e, variable) {
@@ -207,6 +230,8 @@ body {
   background-color: var(--sl-color-neutral-50);
   height: max-content;
   border-radius: var(--sl-border-radius-medium);
+  margin: 0;
+  padding: 15px;
 }
 h1,
 h2,
