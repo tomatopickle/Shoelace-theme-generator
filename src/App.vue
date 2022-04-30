@@ -60,7 +60,7 @@
         </div>
       </sl-split-panel>
     </div>
-    <sl-dialog label="Copy Code" :open="copyCode.show">
+    <sl-dialog label="Copy Code" :open="copyCode.show" @sl-after-hide="copyCode.show = false;">
       <pre id="codePreview">
       <code>{{copyCode.styles}}</code>
 
@@ -118,7 +118,7 @@ export default {
           styles += `\n ${variable}: ${palette[variable]}`;
         }
       });
-      console.log(styles);
+      
       this.copyCode.styles = styles;
     },
     updateColor(e, variable) {
