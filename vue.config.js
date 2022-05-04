@@ -1,10 +1,20 @@
 const { defineConfig } = require('@vue/cli-service');
 module.exports = defineConfig({
-    transpileDependencies: true,
-    devServer: {
-        allowedHosts: 'all',
+  transpileDependencies: true,
+  /* your config */
+  configureWebpack: {
+    optimization: {
+      runtimeChunk: 'single',
     },
-	chainWebpack: config => {
+  },
+  devServer: {
+    host: '0.0.0.0',
+    allowedHosts: 'all',
+    client: {
+      webSocketURL: `wss:/0.0.0.0/ws`,
+    }
+  },
+  chainWebpack: config => {
     config.module
       .rule('vue')
       .use('vue-loader')
