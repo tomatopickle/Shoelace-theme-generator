@@ -82,7 +82,7 @@
         <code>}</code>
       </div>
       <div slot="footer">
-        <sl-button class="margin-small" variant="primary">Copy Code</sl-button>
+        <sl-button class="margin-small" variant="primary" @click="copyCSSCode()">Copy Code</sl-button>
       </div>
     </sl-dialog>
   </div>
@@ -136,6 +136,11 @@ export default {
       });
 
       this.copyCode.styles = styles;
+    },
+    copyCSSCode(){
+      const text = document.getElementById("codePreview").innerText;
+      console.log(text);
+      window.navigator.clipboard.writeText(text)
     },
     updateColor(e, variable) {
       let value = e.target.value;
