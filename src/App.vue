@@ -127,13 +127,6 @@ export default {
     showCode() {
       this.copyCode.show = true;
       let styles = {};
-      // this.colors.forEach((colorInfo) => {
-      //   // Converting JSON object to CSS code and adding it
-      //   let palette = this.getPalette(colorInfo.variable, colorInfo.value);
-      //   for (var variable of Object.keys(palette)) {
-      //     styles += `\n${variable}: ${palette[variable]};`;
-      //   }
-      // });
       this.colors.forEach((colorInfo) => {
         // Merging the styles object returned
         styles = Object.assign(
