@@ -1,0 +1,66 @@
+body {
+    font-family: var(--sl-font-sans);
+    font-size: var(--sl-font-size-medium);
+    font-weight: var(--sl-font-weight-normal);
+    letter-spacing: var(--sl-letter-spacing-normal);
+    background-color: var(--sl-color-neutral-0);
+    color: var(--sl-color-neutral-900);
+    line-height: var(--sl-line-height-normal);
+    --spacing: 1.5rem;
+    --swatch-size: 55px;
+  }
+  #codePreview {
+    background-color: var(--sl-color-neutral-50);
+    height: max-content;
+    border-radius: var(--sl-border-radius-medium);
+    margin: 0;
+    padding: 15px;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0;
+  }
+  #content {
+    margin: auto;
+    margin-top: 30px;
+    width: 95vw;
+  }
+  .card-preview {
+    width: 100%;
+  }
+  .card-preview sl-button {
+    margin: var(--sl-spacing-2x-small);
+  }
+  .swatch {
+    display: inline-block;
+    width: var(--swatch-size);
+    height: var(--swatch-size);
+    border-radius: 2px;
+    margin-inline: 2px;
+  }
+  .colors {
+    display: flex;
+    align-items: center;
+  }
+  .colors-parent {
+    width: max-content;
+    margin: auto;
+  }
+  .colors-parent h4 {
+    position: relative;
+    right: 2.5vw;
+  }
+  .colors sl-color-picker {
+    margin-right: 10px;
+  }
+  #colorsHeader {
+    display: flex;
+    margin-bottom: 7px;
+  }
+  #colorsHeader h2 {
+    width: 90%;
+  }
