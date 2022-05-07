@@ -1,4 +1,4 @@
-# shoelace-theme-maker
+# shoelace-theme-generator
 
 ## Project setup
 ```

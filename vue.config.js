@@ -14,7 +14,14 @@ module.exports = defineConfig({
       webSocketURL: `wss:/0.0.0.0/ws`,
     }
   },
+  pwa: {
+    name: 'Shoelace Theme Generator',
+    themeColor: '#1caaea',
+    msTileColor: '#1caaea',
+    appleMobileWebAppCapable: 'no',
+  },
   chainWebpack: config => {
+    config.plugin('html').tap(args => { args[0].title = 'Shoelace Theme Generator'; return args; });
     config.module
       .rule('vue')
       .use('vue-loader')

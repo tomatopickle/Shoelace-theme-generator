@@ -1,6 +1,7 @@
 <template>
   <div>
     <div id="header">
+      <img height="32" src="./assets/logo.png" alt="Theme generator logo">
       <h2>Shoelace Theme Generator</h2>
     </div>
     <div id="content">

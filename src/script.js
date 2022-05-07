@@ -103,7 +103,7 @@ export default {
         scale = scale.reverse();
         if (variable == "--sl-color-neutral") {
           styles[`--sl-color-neutral-0`] = `${chroma(
-            chroma(scale[1]).luminance(0.01)
+            chroma(scale[1]).luminance(0.013)
           ).hex()} `;
         }
       } else {
