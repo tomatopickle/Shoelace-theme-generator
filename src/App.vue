@@ -10,7 +10,7 @@
             <div id="colorsHeader">
               <h2>Colors</h2>
               <sl-button size="medium" @click="switchToDarkMode()"
-                >Switch to Dark Mode</sl-button
+                >Toggle Dark Mode</sl-button
               >
               <sl-button variant="primary" @click="showCode()"
                 >Get Code</sl-button

@@ -1,5 +1,6 @@
 import chroma from "chroma-js";
 import jss from "jss-browserify/jss";
+import toast from "./scripts/toast.js"
 export default {
   name: "App",
   data: () => {
@@ -48,8 +49,8 @@ export default {
     },
     copyCSSCode() {
       const text = document.getElementById("codePreview").innerText;
-      console.log(text);
       window.navigator.clipboard.writeText(text);
+      toast("Styles Copied!");
     },
     updateColor(e, variable) {
       let value = e.target.value;
